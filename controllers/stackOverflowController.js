@@ -8,14 +8,14 @@ async function getContent(query) {
   const googleLinks = await googleSearchController.searchLinks(`stackoverflow ${query}`);
   const url = googleLinks.find(link => link.includes('stackoverflow.com/questions'));
 
+  if (!url) {
+    throw new Error('No se encontraron preguntas en Stack Overflow para la consulta proporcionada.');
+  }
+
   const scraper = new Scraper();
   await scraper.init();
   const html = await scraper.getPageContent(url);
   const parser = new Parser(html);
-
-  if (!query) {
-    query = "undefined";
-  }
 
   const title = parser.getTitle();
   const question = parser.getQuestion();
@@ -52,16 +52,24 @@ async function getContent(query) {
   await scraper.close();
 
   return {
+    query,
     title: existingQuestion.title,
-    question: existingQuestion.content,
-    answers: savedAnswers.map(answer => answer.content),
+    question: {
+      content: existingQuestion.content,
+      ask: existingQuestion.ask,
+      links: existingQuestion.links,
+      votes: existingQuestion.votes
+    },
+    answers: savedAnswers.map(answer => {
+      return {
+        content: answer.content,
+        votes: answer.votes,
+        author: answer.author
+      };
+    })
   };
 }
 
 export default {
   getContent,
 };
-
-
-
-

@@ -1,12 +1,6 @@
 # Proyecto_webScraping
 
-# Buscador Stack Overflow
+Buscador de dudas y errores para "Programadores"
 
 ![Imagen de ejemplo](imagenes/b.png)
 
-
-## Sección con imagen
-
-Aquí se muestra una imagen:
-
-![Imagen de ejemplo](imagenes/a.png)
