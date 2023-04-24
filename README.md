@@ -1,12 +1,12 @@
 # Proyecto_webScraping
 
-# Título del proyecto
+# Buscador Stack Overflow
 
-Este es un proyecto de ejemplo.
+![Imagen de ejemplo](imagenes/b.png)
+
 
 ## Sección con imagen
 
 Aquí se muestra una imagen:
-
 
 ![Imagen de ejemplo](imagenes/a.png)
