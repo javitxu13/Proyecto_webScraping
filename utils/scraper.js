@@ -7,6 +7,13 @@ class Scraper {
         this.page = null;
     }
 
+  /**
+ * Inicializa la instancia de Puppeteer y la página web que se va a manipular
+ * @method
+ * @async
+ * @returns {Promise<void>}
+ */
+
     async init(){
         this.browser = await puppeteer.launch({
             headless:true,
@@ -16,19 +23,24 @@ class Scraper {
         this.page = await this.browser.newPage();
     }
 
+    /**
+     * Obtiene el contenido de una página web
+     * @method
+     * @async
+     * @param {string} url - URL de la página web
+     */
+
     async getPageContent(url) {
         await this.page.goto(url);
         return await this.page.content();
       }
-    
-    /* async getPageContent(url) {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        await page.goto(url);
-        const content = await page.content();
-        await browser.close();
-        return content;
-      } */
+
+   /**
+ * Cierra la instancia de Puppeteer y la página web que se está manipulando
+ * @method
+ * @async
+ * @returns {Promise<void>}
+ */
 
     async close(){
         await this.browser.close();

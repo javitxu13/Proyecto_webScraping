@@ -2,5 +2,11 @@
     "source": {
         "include": ["./"],
         "exclude": ["node_modules","out","coverage" ]
-    }
+    },
+    "templates": {
+        "deafault":{
+            "outputSourceFiles":false
+        }
+    },
+    "private":true
 }

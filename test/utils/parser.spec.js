@@ -1,6 +1,12 @@
 import Parser from '../../utils/parser.js';
 import fs from 'fs';
 
+/**
+    Inicializa una nueva instancia de la clase Parser.
+    @constructor
+    @param {string} html - El contenido HTML a ser analizado.
+    */
+
 describe('Parser', () => {
   let parser;
 
@@ -8,7 +14,13 @@ describe('Parser', () => {
     const html = fs.readFileSync('./test/utils/test.html', 'utf8');
     parser = new Parser(html);
   });
-  
+
+
+  /**
+    Prueba unitaria para el método getTitle de la clase Parser.
+    Verifica si el método devuelve correctamente el título de la página HTML.
+    @test {Parser#getTitle}
+    */
   //preguntas
   it('Debería devolver el título de la página', () => {
     const question = parser.getQuestionAsDOM();
@@ -16,7 +28,11 @@ describe('Parser', () => {
     expect(title).toBe('What is the difference between a property and a variable');
   });
 
-
+  /**
+    Prueba unitaria para el método getAsk de la clase Parser.
+    Verifica si el método devuelve correctamente la fecha y vistas de la pregunta HTML.
+    @test {Parser#getAsk}
+    */
   it('Debería devolver la fecha/vistas de la pregunta', () => {
     const question = parser.getQuestionAsDOM();
     const ask = parser.getAsk(question);
