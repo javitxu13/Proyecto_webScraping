@@ -1,30 +1,23 @@
-const express = require('express');
-const Parser = require('./parser');
+import express from "express";
+import stackOverflowController from "./controllers/stackOverflowController.js";
 
 const app = express();
 
-// Ruta para mostrar la pregunta
-app.get('/question', (req, res) => {
-  const parser = new Parser('test.html'); // reemplaza <html>...</html> con tu HTML
-  const question = parser.getQuestion();
-  res.send(`Pregunta: ${question.title}, Votos: ${question.votes}, Autor: ${question.ask}, Links: ${question.links}`);
+app.get("/", async (req, res) => {
+    try{
+        const  query  = req.query.q;
+        const { title, question, answers } = await stackOverflowController.getContent(query);
+        res.json({ title, question, answers });
 
+    } catch (error) {
+        //throw new Error(error);
+        res.status(500).send("Hubo un error");
+    }
+        
 });
 
-// Ruta para mostrar las respuestas
-app.get('/answers', (req, res) => {
-  const parser = new Parser("test.html"); // reemplaza <html>...</html> con tu HTML
-  const answers = parser.answerQuestion();
-  let answerString = '';
-  answers.forEach((answer) => {
-    answerString += `Respuesta: ${answer.paragraphs}, Votos: ${answer.votes}, Autor: ${answer.author}<br>`;
-  });
-  res.send(answerString);
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
 });
 
-// Puerto en el que escucha el servidor
-const PORT = 3001;
-
-// Iniciar el servidor
-app.listen(PORT, () => console.log(`Servidor iniciado en el puerto ${PORT}`));
-
+ 

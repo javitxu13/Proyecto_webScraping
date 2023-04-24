@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>StackOverflow Search</title>
+
+  </head>
+  <body>
+    <h1>StackOverflow Search</h1>
+    <form action="/" method="GET">
+      <label for="search-query">Enter a search query:</label>
+      <input type="text" name="q" id="search-query">
+      <button type="submit">Search</button>
+    </form>
+    <div id="results"></div>
+    <script>
+      const form = document.querySelector('form');
+      const resultsDiv = document.querySelector('#results');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const query = form.elements['q'].value;
+        const response = await fetch(`/?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        const { title, question, answers } = data;
+        resultsDiv.innerHTML = `
+          <h2>${title}</h2>
+          <p>${question}</p>
+          <ul>
+            ${answers.map(answer => `<li>${answer}</li>`).join('')}
+          </ul>
+        `;
+        const titleElement = document.createElement('h3');
+        titleElement.textContent = title;
+        document.body.appendChild(titleElement);
+      });
+
+
+
+      
+    </script>
+  </body>
+</html>
+

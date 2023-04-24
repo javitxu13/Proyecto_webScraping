@@ -29,9 +29,9 @@ describe('Parser', () => {
     expect(votes).toBe(93);
   });
 
-  it('Debería devolver los links de la pregunta', () => {
+  it('Debería devolver los comentarios de la pregunta', () => {
     const question = parser.getQuestionAsDOM();
-    const links = parser.getLinks(question);
+    const links = parser.getComments(question);
     expect(links[0]).toContain('would normally be referred to as a field and not a variable.');
   });
 
@@ -48,8 +48,7 @@ describe('Parser', () => {
     const answer = parser.getAnswerAsDOM();
     const author = parser.getAuthors(answer[0]);
     expect(author).toContain("Glorfindel");
-  }
-  );
+  });
 
 });
 

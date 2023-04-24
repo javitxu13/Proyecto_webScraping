@@ -34,7 +34,7 @@ class Parser {
     const title = this.getTitle();
     const ask = this.getAsk(question);
     const votes = this.getVotesQuestion();
-    const links = this.getLinks();
+    const links = this.getComments(question);
     return {
       title,
       ask,
@@ -59,10 +59,32 @@ class Parser {
     return parseInt(votes);
   }
 
-  getLinks(element) {
+  getLinks() {
+    const links = Array.from (this.document.querySelectorAll("#search a"));
+    return links.map((link) => link.href);
+  } 
+
+  getComments(element) {
     const links = Array.from (element.querySelector(".comments-list").querySelectorAll("li"));
     return links.map((link) => link.textContent.trim());
-  }
+  } 
+
+  /* getLinks(element) {
+    if (!element) {
+      return [];
+    }
+  
+    const commentsList = element.querySelector('.comments-list');
+    if (commentsList) {
+      const links = Array.from(commentsList.querySelectorAll('li'));
+      return links.map((link) => link.textContent.trim());
+    } else {
+      return [];
+    }
+  } */
+  
+
+
 
   getAnswerAsDOM() {
     return Array.from(this.document.querySelectorAll('.answer'));
