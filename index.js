@@ -13,6 +13,7 @@ app.get("/", async (req, res) => {
   }
 });
 
+
 app.get("/api", async (req, res) => {
   try {
     const query = req.query.q;
